@@ -27,6 +27,9 @@ export default class OAuth2 {
     if (!options.grantType && !token && !options.accessToken) {
       throw new Error('If no grantType is specified, a token must be provided');
     }
+    if (typeof options.scheduleRefresh === 'undefined') {
+      options.scheduleRefresh = true;
+    }
     this.options = options;
 
     // Backwards compatibility
@@ -166,6 +169,9 @@ export default class OAuth2 {
 
   private scheduleRefresh() {
 
+    if (!this.options.scheduleRefresh) {
+      return;
+    }
     if (this.refreshTimer) {
       clearTimeout(this.refreshTimer);
       this.refreshTimer = null;

@@ -1,4 +1,16 @@
 /**
+ * General options
+ */
+export type MiddlewareOptions = {
+
+  /**
+   * Whether to schedule refreshes.
+   */
+  scheduleRefresh?: boolean;
+
+}
+
+/**
  * Token information
  */
 export type OAuth2Token = {
@@ -189,9 +201,8 @@ type RefreshOnlyGrantOptions = {
   onAuthError?: (error: Error) => void;
 };
 
-export type OAuth2Options =
-  PasswordGrantOptions | ClientCredentialsGrantOptions | AuthorizationCodeGrantOptions | RefreshOnlyGrantOptions;
-
+export type OAuth2Options = MiddlewareOptions &
+  (PasswordGrantOptions | ClientCredentialsGrantOptions | AuthorizationCodeGrantOptions | RefreshOnlyGrantOptions);
 
 export type AccessTokenRequest = {
   grant_type: 'client_credentials';
